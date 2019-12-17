@@ -7,35 +7,27 @@ Signal System::eval(const Signal &input) {
 
 	Signal Ans; 	// válasz jel létrehozása
 
-	buffer.clear();	// buffer ürítése
-	size_t buff_size = std::max(num.size(), den.size());
-	buffer.resize(buff_size);
-
 	for(auto i : buffer){
 		i = 0;
 	}
 
-	int tmp = 0; // aktuális érték
-	int k = 0;	//ciklusváltozó
+	int tmp; // aktuális érték
 
-	for(int l = 0; l < input.getSize()+buffer.size(); l++){ // összes tmp kiszámítása // todo: nem jó a lépésszám, de még lehet jó
+	for(int l = 0; l < input.getSize()+buffer.size(); l++){ // összes tmp kiszámítása // todo: lépésszám becslése szükséges. lecsengésoi idő megadása pl....
+		tmp = 0;
+
 		//----------------------------------------------------------------------------------
-		k = 0;// todo : ronda
 
-		for(auto i : num) {
-			if(l-k >= 0 && l-k < input.getSize()){				// l-k >= 0 -- régebbi a gerjesztés mint T0 kiszűrése,
-				tmp = tmp + (int)round(i*input[l-k]);
+		for(int k = 0; k < num.size(); k++) {
+			if(l-k >= 0 && l-k < input.getSize()){
+				tmp = tmp + (int)round(num[k]*input[l-k]);
 			}
-			k++;
 		}
 
-		k = 0;
-
-		for(auto j : den) {
-			if(l-k >= 0 && k < buffer.size()){				// l-k >= 0 --
-				tmp = tmp + (int)round(j*buffer[k]);
+		for(int k = 0; k < den.size(); k++) {
+			if(l-k >= 0 && k < buffer.size()){
+				tmp = tmp + (int)round(den[k]*buffer[k]);
 			}
-			k++;
 		}
 		//----------------------------------------------------------------------------------
 
@@ -44,7 +36,6 @@ Signal System::eval(const Signal &input) {
 
 		//itt már tmp az aktuális válasz
 		Ans.add(tmp);
-		tmp = 0;
 	}
 
 	return Ans;
@@ -57,4 +48,10 @@ System::System(std::initializer_list<double> nump, std::initializer_list<double>
 	for(auto j : denp){
 		den.push_back(j);
 	}
+}
+
+void System::reset() {
+	buffer.clear();	// buffer ürítése
+	size_t buff_size = den.size();
+	buffer.resize(buff_size);
 }

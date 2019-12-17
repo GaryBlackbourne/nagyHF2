@@ -8,18 +8,19 @@
 
 // noexcept kulcsszavakat kitenni
 
-int main(int agrc, char* argv[])
+int main(int argc, char* argv[])
 {
 
-	Signal input;
-	IO io;
-	io.read("test.wav", input);
+//	Signal input;
+//	IO io;
+//	io.read("test.wav", input);
 
 
-	System sys{{1},{0.5}};
+	System sys{{100},{0.4,0.3,0.2}};
 
-	Signal v = {0,0,100,50,0,0,0,0};
+	Signal v = {0,0,1,0,0,0,0,0,0,0,0};
 
+	sys.reset();
 	Signal ans = sys.eval(v);
 
 	for(auto i : ans){
@@ -27,11 +28,22 @@ int main(int agrc, char* argv[])
 	}
 
 //
-//	std::vector<int> test = {0,0,0,1,0,0,0,};
-//	std::rotate(test.begin(), test.end()-1, test.end());
-//	for(auto j : test){
-//		std::cout << j;
+//	if(argv[0] == "start"){
+//		std::cout << "start" << std::endl;
+//	}else if(argv[0] == "valami"){
+//		std::cout << "valami" << std::endl;
+//	}else {
+//		std::cout << "unknown command" << std::endl;
 //	}
+
+
+//	std::cout << "You have entered " << argc
+//		 << " arguments:" << "\n";
+//
+//	for (int i = 0; i < argc; ++i)
+//		std::cout << argv[i] << "\n";
+//
+//	return 0;
 
 
 	return 0;

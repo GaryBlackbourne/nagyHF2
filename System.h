@@ -14,7 +14,7 @@ class System
 private:
 	std::vector<double> num;
 	std::vector<double> den;
-	std::vector<int> buffer; //
+	std::vector<int> buffer;
 
 public:
 	System() = default;
@@ -23,6 +23,9 @@ public:
 
 
 	Signal eval(const Signal&); // adott bemeneti jelből adott kimeneti jelben
+	void reset();
+
+//	bool stable() const;
 
 };
 
