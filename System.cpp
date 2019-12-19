@@ -13,8 +13,7 @@ Signal System::eval(const Signal &input) {
 
 	int tmp; // aktuális érték
 
-	for (int l = 0; l < input.getSize() +
-						buffer.size(); l++) { // összes tmp kiszámítása // todo: lépésszám becslése szükséges. lecsengésoi idő megadása pl....
+	for (int l = 0; l < input.getSize() + buffer.size(); l++) {
 		tmp = 0;
 
 		//----------------------------------------------------------------------------------

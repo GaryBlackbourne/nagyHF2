@@ -20,7 +20,7 @@ public:
 
 	void write(std::string filename, const Signal &output);
 
-	void clear(); // todo : noexcept ?
+	void clear() noexcept;
 };
 
 

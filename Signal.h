@@ -35,8 +35,6 @@ public:
 	std::vector<int>::iterator end() noexcept;
 
 	void add(int); // push_back;
-	// capacity() vel állíthatjuk a lefoglalt memória mennyiségét
-	// shrink_to_fit() el visszaadhatjuk a felesleges memóriát
 };
 
 
