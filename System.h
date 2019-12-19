@@ -14,15 +14,18 @@ private:
 
 public:
 	System(std::initializer_list<double> = {1}, std::initializer_list<double> = {0});
+
 	~System() = default;
 
-	void setNum(std::vector<double>&);
-	void setDen(std::vector<double>&);
+	void setNum(std::vector<double> &);
 
-	void setNum(std::vector<double>&&);
-	void setDen(std::vector<double>&&);
+	void setDen(std::vector<double> &);
 
-	Signal eval(const Signal&); // adott bemeneti jelből adott kimeneti jelben
+	void setNum(std::vector<double> &&);
+
+	void setDen(std::vector<double> &&);
+
+	Signal eval(const Signal &); // adott bemeneti jelből adott kimeneti jelben
 	void reset();
 
 //	bool stable() const;

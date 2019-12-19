@@ -6,10 +6,8 @@
 #include <cmath>
 #include <algorithm>
 
-// noexcept kulcsszavakat kitenni
 
-int main(int argc, char* argv[])
-{
+int main(int argc, char *argv[]) {
 
 	std::string inputFile = "defaultIn.wav";
 	std::string outputFile = "defaultOut.wav";
@@ -23,44 +21,42 @@ int main(int argc, char* argv[])
 	IO io;
 
 
-	for (int i = 1; i < argc; i ++){
-		if(std::string{argv[i]} == "--input") {
-			if(argc > i + 1){
+	for (int i = 1; i < argc; i++) {
+		if (std::string{argv[i]} == "--input") {
+			if (argc > i + 1) {
 				i++;
 				inputFile = argv[i];
 			}
-		}else if(std::string{argv[i]} == "--output"){
-			if(argc > i + 1){
+		} else if (std::string{argv[i]} == "--output") {
+			if (argc > i + 1) {
 				i++;
 				outputFile = argv[i];
 			}
-		}else if(std::string{argv[i]} == "--num"){
+		} else if (std::string{argv[i]} == "--num") {
 			bool run = true;
 			i++;
-			while(run && argc > i){
-				try
-				{
+			while (run && argc > i) {
+				try {
 					numParam.push_back(std::stod(argv[i]));
 					i++;
-				}catch (std::invalid_argument&){
+				} catch (std::invalid_argument &) {
 					run = false;
 					i--;
 				}
 			}
-		}else if(std::string{argv[i]} == "--den"){
+		} else if (std::string{argv[i]} == "--den") {
 			bool run = true;
 			i++;
-			while(run && argc > i){
-				try
-				{
+			while (run && argc > i) {
+				try {
 					denParam.push_back(std::stod(argv[i]));
 					i++;
-				}catch (std::invalid_argument&){
+				} catch (std::invalid_argument &) {
 					run = false;
 					i--;
 				}
 			}
-		}else{
+		} else {
 			std::cout << "Invalid argument: " << argv[i] << std::endl;
 		}
 	}
@@ -68,40 +64,21 @@ int main(int argc, char* argv[])
 	sys.setNum(numParam);
 	sys.setDen(denParam);
 
-	try
-	{
+	try {
 		io.read(inputFile, input);
-	}catch(std::ios_base::failure& error){
+	} catch (std::ios_base::failure &error) {
 		std::cerr << error.what() << std::endl;
 		return 1;
 	}
 
-	sys.reset();	// set/reset buffer
+	sys.reset();    // set/reset buffer
 	Signal output = sys.eval(input);
 
-// formálisan:
-//...........................................................
-
-//	Signal output;
-//	try
-//	{
-//		output = sys.eval(input);	// ha lehet akkor go
-//	}catch (std::runtime_error& error){
-//		std::cerr << error.what() << std::endl;		// ha nem akkor error,
-//		sys.reset();								// majd reset
-//		output = sys.eval(input);					// majd ujrapróbálás
-//	}
-
-//...........................................................
-
-	try
-	{
+	try {
 		io.write(outputFile, output);
-	}catch (std::ios_base::failure& error){
+	} catch (std::ios_base::failure &error) {
 		std::cerr << error.what() << std::endl;
 	}
-
-
 
 	return 0;
 }

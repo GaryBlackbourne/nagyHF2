@@ -2,10 +2,10 @@
 #include <iostream>
 #include <fstream>
 
-void IO::read(std::string filename, Signal& input) {
+void IO::read(std::string filename, Signal &input) {
 	std::ifstream is(filename, std::ifstream::binary);
 
-	if(!is){
+	if (!is) {
 		throw std::ios_base::failure("input file not found");
 	}
 
@@ -17,22 +17,22 @@ void IO::read(std::string filename, Signal& input) {
 	// data olvasása Signal-ba.
 
 	int tmpd;
-	is.read(reinterpret_cast<char*>(&tmpd), 4);
+	is.read(reinterpret_cast<char *>(&tmpd), 4);
 
-	while (!is.eof()){
+	while (!is.eof()) {
 
 		input.add(tmpd);
-		is.read(reinterpret_cast<char*>(&tmpd), 4);
+		is.read(reinterpret_cast<char *>(&tmpd), 4);
 
 	}
 
 	is.close();
 }
 
-void IO::write(std::string filename, const Signal& output) {
+void IO::write(std::string filename, const Signal &output) {
 	std::ofstream os(filename, std::ofstream::binary);
 
-	if(!os){
+	if (!os) {
 		throw std::ios_base::failure("failed to write output file!");
 	}
 
@@ -42,21 +42,21 @@ void IO::write(std::string filename, const Signal& output) {
 	os.write(dataSub, sizeof(dataSub));
 
 
-	for(auto i : output){
-		os.write(reinterpret_cast<const char*>(&i), 4);
+	for (auto i : output) {
+		os.write(reinterpret_cast<const char *>(&i), 4);
 	}
 
 	os.close();
 }
 
 void IO::clear() {
-	for(auto i : RIFF){
+	for (auto i : RIFF) {
 		i = 0;
 	}
-	for(auto i : fmt){
+	for (auto i : fmt) {
 		i = 0;
 	}
-	for(auto i : dataSub){
+	for (auto i : dataSub) {
 		i = 0;
 	}
 }
