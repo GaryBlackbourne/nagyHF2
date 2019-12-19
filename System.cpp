@@ -5,6 +5,10 @@
 
 Signal System::eval(const Signal &input) {
 
+	if(buffer.empty()){
+		throw std::runtime_error("empty buffer"); 	// todo: ennek 1/1-0 átvitelen nem kéne szerepet játszania
+	}
+
 	Signal Ans; 	// válasz jel létrehozása
 
 	for(auto i : buffer){
@@ -24,7 +28,7 @@ Signal System::eval(const Signal &input) {
 			}
 		}
 
-		for(int k = 0; k < den.size(); k++) {
+		for(int k = 0; k < den.size(); k++) {			// todo: tippre itt kell valami
 			if(l-k >= 0 && k < buffer.size()){
 				tmp = tmp + (int)round(den[k]*buffer[k]);
 			}
@@ -54,4 +58,20 @@ void System::reset() {
 	buffer.clear();	// buffer ürítése
 	size_t buff_size = den.size();
 	buffer.resize(buff_size);
+}
+
+void System::setDen(std::vector<double>& denParam) {
+	den = denParam;
+}
+
+void System::setNum(std::vector<double>& numParam) {
+	num = numParam;
+}
+
+void System::setDen(std::vector<double>&& denParam) {
+	den = denParam;
+}
+
+void System::setNum(std::vector<double>&& numParam) {
+	num = numParam;
 }

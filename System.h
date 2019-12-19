@@ -1,7 +1,3 @@
-//
-// Created by geri on 2019.11.27..
-//
-
 #ifndef NAGYHF2_SYSTEM_H
 #define NAGYHF2_SYSTEM_H
 
@@ -17,10 +13,14 @@ private:
 	std::vector<int> buffer;
 
 public:
-	System() = default;
-	System(std::initializer_list<double>, std::initializer_list<double>);
+	System(std::initializer_list<double> = {1}, std::initializer_list<double> = {0});
 	~System() = default;
 
+	void setNum(std::vector<double>&);
+	void setDen(std::vector<double>&);
+
+	void setNum(std::vector<double>&&);
+	void setDen(std::vector<double>&&);
 
 	Signal eval(const Signal&); // adott bemeneti jelből adott kimeneti jelben
 	void reset();

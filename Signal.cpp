@@ -1,14 +1,8 @@
-//
-// Created by geri on 2019.11.27..
-//
-
 #include "Signal.h"
 
-//Signal::~Signal() {};
-//
 Signal::Signal(std::initializer_list<int> list){
-	for(auto i = list.begin(); i!= list.end(); i++) {
-		data.push_back(*i);
+	for(auto i : list){
+		data.push_back(i);
 	}
 };
 

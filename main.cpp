@@ -10,11 +10,18 @@
 
 int main(int argc, char* argv[])
 {
+
 	std::string inputFile = "defaultIn.wav";
 	std::string outputFile = "defaultOut.wav";
-	std::vector<double> numParam;
-	std::vector<double> denParam;
-	//System sys;
+
+	std::vector<double> numParam = {1};
+	std::vector<double> denParam = {0};
+
+	System sys;
+
+	Signal input;
+	IO io;
+
 
 	for (int i = 1; i < argc; i ++){
 		if(std::string{argv[i]} == "--input") {
@@ -58,35 +65,42 @@ int main(int argc, char* argv[])
 		}
 	}
 
+	sys.setNum(numParam);
+	sys.setDen(denParam);
 
+	try
+	{
+		io.read(inputFile, input);
+	}catch(std::ios_base::failure& error){
+		std::cerr << error.what() << std::endl;
+		return 1;
+	}
 
+	sys.reset();	// set/reset buffer
+	Signal output = sys.eval(input);
 
+// formálisan:
+//...........................................................
 
-
-//	Signal input;
-//	IO io;
-//	io.read("test.wav", input);
-
-
-//	System sys{{100},{0.4,0.3,0.2}};
-//
-//	Signal v = {0,0,1,0,0,0,0,0,0,0,0};
-//
-//	sys.reset();
-//	Signal ans = sys.eval(v);
-//
-//	for(auto i : ans){
-//	s	std::cout << i << std::endl;
+//	Signal output;
+//	try
+//	{
+//		output = sys.eval(input);	// ha lehet akkor go
+//	}catch (std::runtime_error& error){
+//		std::cerr << error.what() << std::endl;		// ha nem akkor error,
+//		sys.reset();								// majd reset
+//		output = sys.eval(input);					// majd ujrapróbálás
 //	}
 
+//...........................................................
 
-//	std::cout << "You have entered " << argc
-//		 << " arguments:" << "\n";
-//
-//	for (int i = 0; i < argc; ++i)
-//		std::cout << argv[i] << "\n";
-//
-//	return 0;
+	try
+	{
+		io.write(outputFile, output);
+	}catch (std::ios_base::failure& error){
+		std::cerr << error.what() << std::endl;
+	}
+
 
 
 	return 0;

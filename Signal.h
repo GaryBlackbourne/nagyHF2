@@ -1,7 +1,3 @@
-//
-// Created by geri on 2019.11.27..
-//
-
 #ifndef NAGYHF2_SIGNAL_H
 #define NAGYHF2_SIGNAL_H
 

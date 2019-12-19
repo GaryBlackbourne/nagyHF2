@@ -1,7 +1,3 @@
-//
-// Created by geri on 2019.11.27..
-//
-
 #include "IO.h"
 #include <iostream>
 #include <fstream>
@@ -10,8 +6,7 @@ void IO::read(std::string filename, Signal& input) {
 	std::ifstream is(filename, std::ifstream::binary);
 
 	if(!is){
-		std::cerr << "baj van" << std::endl;
-		return;
+		throw std::ios_base::failure("input file not found");
 	}
 
 
@@ -42,8 +37,7 @@ void IO::write(std::string filename, const Signal& output) {
 	std::ofstream os(filename, std::ofstream::binary);
 
 	if(!os){
-		std::cerr << "baj van" << std::endl;
-		return;
+		throw std::ios_base::failure("failed to write output file!");
 	}
 
 	// inicializált IO alapján riff fmt data chunk irások
@@ -57,4 +51,16 @@ void IO::write(std::string filename, const Signal& output) {
 	}
 
 	os.close();
+}
+
+void IO::clear() {
+	for(auto i : RIFF){
+		i = 0;
+	}
+	for(auto i : fmt){
+		i = 0;
+	}
+	for(auto i : dataSub){
+		i = 0;
+	}
 }
