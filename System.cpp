@@ -69,7 +69,7 @@ void System::setNum(std::vector<double>& numParam) {
 }
 
 void System::setDen(std::vector<double>&& denParam) {
-	den = denParam;
+	den = denParam; // std::vector operator = --> move
 }
 
 void System::setNum(std::vector<double>&& numParam) {

@@ -21,13 +21,13 @@ public:
 
 	~Signal() = default;
 
-	size_t getSize() const;
+	size_t getSize() const noexcept;
 	const int& operator[] (size_t) const;
 
-	std::vector<int>::const_iterator begin() const;
-	std::vector<int>::iterator begin();
-	std::vector<int>::const_iterator end() const;
-	std::vector<int>::iterator end();
+	std::vector<int>::const_iterator begin() const noexcept;
+	std::vector<int>::iterator begin() noexcept;
+	std::vector<int>::const_iterator end() const noexcept;
+	std::vector<int>::iterator end()noexcept;
 
 	void add(int); // push_back;
 	// capacity() vel állíthatjuk a lefoglalt memória mennyiségét

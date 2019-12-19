@@ -9,9 +9,7 @@ void IO::read(std::string filename, Signal& input) {
 		throw std::ios_base::failure("input file not found");
 	}
 
-
-
-	//IO inicializálása // todo : figyelni a little big endianos sorrendre :)
+	//IO inicializálása
 	is.read(RIFF, 12);
 	is.read(fmt, 24);
 	is.read(dataSub, 8);
@@ -28,9 +26,7 @@ void IO::read(std::string filename, Signal& input) {
 
 	}
 
-
 	is.close();
-
 }
 
 void IO::write(std::string filename, const Signal& output) {

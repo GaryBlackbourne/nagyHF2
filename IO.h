@@ -17,7 +17,7 @@ public:
 	void read(std::string filename, Signal& input);
 	void write(std::string filename, const Signal& output);
 
-	void clear();
+	void clear(); // todo : noexcept ?
 };
 
 
